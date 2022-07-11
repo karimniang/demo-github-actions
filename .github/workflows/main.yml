@@ -9,10 +9,13 @@ jobs:
     name: Building and Pushing the Image
     runs-on: ubuntu-latest
 
+    env:
+      IMGTAG: ${{ github.run_number }}
+
     steps:
       - uses: actions/checkout@v1
       - name: Buil & Push Image
         run: |
           echo "${{ secrets.DOCKERPW }}" | docker login -u "karimniang" --password-stdin
-          docker image build -t karimniang/demo-github-actions:latest
-          docker push karimniang/demo-github-actions:latest
+          docker image build -t karimniang/demo-github-actions:$IMGTAG .
+          docker push karimniang/demo-github-actions:$IMGTAG
