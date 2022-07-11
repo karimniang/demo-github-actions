@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Building and Pushing the Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Buil & Push Image
+        run: |
+          echo "${{ secrets.DOCKERPW }}" | docker login -u "karimniang" --password-stdin
+          docker image build -t karimniang/demo-github-actions:latest
+          docker push karimniang/demo-github-actions:latest
