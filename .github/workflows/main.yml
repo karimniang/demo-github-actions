@@ -20,7 +20,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: $USERNAME
+          username: "karimniang"
           password: "karimaction123"
 
       - name: Publish to DockerHub
