@@ -21,7 +21,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: $DOCKERPWD
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: $DOCKERUSR
 
       - name: Buil & Push Image
         run: |
