@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v1
       - name: Buil & Push Image
         run: |
-          echo "$DOCKERPWD" | docker login -u "karimniang" --password-stdin
+          echo "$DOCKERPWD" |
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
