@@ -15,13 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Login and publish to DockerHub
-        uses: docker/build-push-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERUSER }}
           password: ${{ secrets.DOCKERPW }}
-          repository: karimniang/demo-github-actions
-          tags: latest, ${{ github.run_number }}
+
+      - name: Publish to DockerHub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: karimniang/demo-github-actions:$IMGTAG
 
       # - name: Buil & Push Image
       #   run: |
