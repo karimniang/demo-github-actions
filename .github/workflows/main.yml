@@ -13,12 +13,7 @@ jobs:
       IMGTAG: ${{ github.run_number }}
 
     steps:
-      - uses: actions/checkout@v2
-      - shell: bash
-        env:
-          SUPER_SECRET: ${{ secrets.DOCKERUSER }}
-        run: |
-          echo "$SUPER_SECRET"
+      #- uses: actions/checkout@v2
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
