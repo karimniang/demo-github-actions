@@ -12,11 +12,18 @@ jobs:
     env:
       IMGTAG: ${{ github.run_number }}
       DOCKERPWD: ${{ secrets.DOCKERPW }}
+      DOCKERUSR: ${{ secrets.DOCKERUSER }}
 
     steps:
       - uses: actions/checkout@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: $DOCKERPWD
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Buil & Push Image
         run: |
-          echo "$DOCKERPWD" |
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
