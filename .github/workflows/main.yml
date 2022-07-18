@@ -18,7 +18,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERUSERj }}
+          username: ${{ secrets.DOCKERUSER }}
           password: ${{ secrets.DOCKERPW }}
 
       - name: Buil & Push Image
@@ -26,6 +26,11 @@ jobs:
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
 
+  notify-slack:
+    name: Slack Notifications
+    runs-on: ubuntu-latest
+    #   #environment: Slackbot Notification
+    steps:
       - name: Notification slack
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -33,19 +38,4 @@ jobs:
           SLACK_TITLE: Test Github action
           SLACK_USERNAME: Abdou Karim Niang
           SLACK_WEBHOOK: ${{ secrets.WEBHOOKURL }}
-          SLACK_MESSAGE: ${{ steps.check.outputs.status }}
-
-  # notify-slack:
-  #   name: Slack Notifications
-  #   runs-on: ubuntu-latest
-  #   #environment: Slackbot Notification
-  #   steps:
-  #     #- uses: actions/checkout@v2
-  #     - name: Notify Slack Test Result
-  #       uses: sanjaykrishnanrs/slack-notify-junitxml-action@0.1.12-alpha
-  #       with:
-  #         title: API Tests
-  #         slackbotid: ${{ secrets.SLACKBOTID }}
-  #         slackbottoken: ${{ secrets.SLACKBOTTOKEN }}
-  #         slackchannel: "${{ secrets.SLACKCHANNEL }}"
-  #junitxml_filepath: junitreport.xml
+          SLACK_MESSAGE: ${{ build.steps.check.outputs.status }}
