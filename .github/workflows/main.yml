@@ -26,8 +26,10 @@ jobs:
         run: |
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
+      - name: test
+        run: echo ${{ steps.check.outputs.status }}
     outputs:
-      statusBuild: ${{ steps.check1.outputs.status }}
+      statusBuild: ${{ steps.check.outputs.status }}
 
   notify-slack:
     if: ${{ always() }}
@@ -38,13 +40,12 @@ jobs:
     steps:
       - name: Notification slack
         uses: rtCamp/action-slack-notify@v2
-        with:
-          status: ${{ needs.build.outputs.statusBuild }}
         env:
           SLACK_CHANNEL: test-github-actions
           SLACK_TITLE: Test Github action
           SLACK_USERNAME: Abdou Karim Niang
           SLACK_WEBHOOK: ${{ secrets.WEBHOOKURL }}
           SLACK_MESSAGE: ${{ needs.build.outputs.statusBuild }}
+          SLACK_COLOR: ${{ needs.build.outputs.statusBuild }}
       - name: test
         run: echo ${{ needs.build.outputs.statusBuild }}
