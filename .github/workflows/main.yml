@@ -25,6 +25,8 @@ jobs:
         run: |
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
+    outputs:
+      statusBuild: ${{ steps.check.outputs.status }}
 
   notify-slack:
     needs: build
@@ -39,4 +41,4 @@ jobs:
           SLACK_TITLE: Test Github action
           SLACK_USERNAME: Abdou Karim Niang
           SLACK_WEBHOOK: ${{ secrets.WEBHOOKURL }}
-          SLACK_MESSAGE: ${{ jobs.build.steps.check.outputs.status }}
+          SLACK_MESSAGE: ${{ needs.build.outputs.statusBuild }}
