@@ -27,6 +27,7 @@ jobs:
           docker push karimniang/demo-github-actions:$IMGTAG
 
   notify-slack:
+    needs: [build]
     name: Slack Notifications
     runs-on: ubuntu-latest
     #   #environment: Slackbot Notification
