@@ -22,11 +22,12 @@ jobs:
           password: ${{ secrets.DOCKERPW }}
 
       - name: Buil & Push Image
+        id: check1
         run: |
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
     outputs:
-      statusBuild: ${{ steps.check.outputs.status }}
+      statusBuild: ${{ steps.check1.outputs.status }}
 
   notify-slack:
     if: ${{ always() }}
