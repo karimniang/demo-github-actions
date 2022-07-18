@@ -27,7 +27,7 @@ jobs:
           docker push karimniang/demo-github-actions:$IMGTAG
 
   notify-slack:
-    needs: [build]
+    needs: build
     name: Slack Notifications
     runs-on: ubuntu-latest
     #   #environment: Slackbot Notification
@@ -39,4 +39,4 @@ jobs:
           SLACK_TITLE: Test Github action
           SLACK_USERNAME: Abdou Karim Niang
           SLACK_WEBHOOK: ${{ secrets.WEBHOOKURL }}
-          SLACK_MESSAGE: ${{ build.steps.check.outputs.status }}
+          SLACK_MESSAGE: ${{ jobs.build.steps.check.outputs.status }}
