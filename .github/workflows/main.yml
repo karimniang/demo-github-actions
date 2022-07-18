@@ -45,3 +45,5 @@ jobs:
           SLACK_USERNAME: Abdou Karim Niang
           SLACK_WEBHOOK: ${{ secrets.WEBHOOKURL }}
           SLACK_MESSAGE: ${{ needs.build.outputs.statusBuild }}
+      - name: test
+        run: echo ${{ needs.build.outputs.statusBuild }}
