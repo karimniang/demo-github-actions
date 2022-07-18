@@ -37,6 +37,8 @@ jobs:
     steps:
       - name: Notification slack
         uses: rtCamp/action-slack-notify@v2
+        with:
+          status: ${{ needs.build.outputs.statusBuild }}
         env:
           SLACK_CHANNEL: test-github-actions
           SLACK_TITLE: Test Github action
