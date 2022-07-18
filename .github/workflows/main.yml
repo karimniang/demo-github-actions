@@ -31,6 +31,21 @@ jobs:
           push: true
           tags: karimniang/demo-github-actions:$IMGTAG
 
+  notify-slack:
+    name: Slack Notifications
+    runs-on: ubuntu-latest
+    #environment: Slackbot Notification
+    steps:
+      #- uses: actions/checkout@v2
+      - name: Notify Slack Test Result
+        uses: sanjaykrishnanrs/slack-notify-junitxml-action@0.1.12-alpha
+        with:
+          title: API Tests
+          slackbotid: ${{ secrets.SLACKBOTID }}
+          slackbottoken: ${{ secrets.SLACKBOTTOKEN }}
+          slackchannel: "${{ secrets.SLACKCHANNEL }}"
+          #junitxml_filepath: junitreport.xml
+
       # - name: Buil & Push Image
       #   run: |
       #     docker image build -t karimniang/demo-github-actions:$IMGTAG .
