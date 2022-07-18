@@ -29,6 +29,7 @@ jobs:
       statusBuild: ${{ steps.check.outputs.status }}
 
   notify-slack:
+    if: ${{ always() }}
     needs: build
     name: Slack Notifications
     runs-on: ubuntu-latest
