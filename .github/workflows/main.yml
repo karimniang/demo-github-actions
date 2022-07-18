@@ -27,9 +27,9 @@ jobs:
           docker image build -t karimniang/demo-github-actions:$IMGTAG .
           docker push karimniang/demo-github-actions:$IMGTAG
       - name: test
-        run: echo ${{ steps.last_status.outputs.last_status }}
+        run: echo ${{ steps.check1.outputs.last_status }}
     outputs:
-      statusBuild: ${{ steps.last_status.outputs.last_status }}
+      statusBuild: ${{ steps.check1.outputs.last_status }}
 
   notify-slack:
     if: ${{ always() }}
